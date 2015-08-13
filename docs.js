@@ -8,38 +8,40 @@ var fs = require('fs');
 exports.readHistory = function(fileName) {
 	fs.readdir('./HS-Stats', function(err, data) {
 		if (err) {
-			console.log("HS-Stats Directory not exists");
 			createDir();
 		}
-		// HS-Stats directory already exists
-		return readFile(fileName);
+		// not returning anything here as fs will return undefined
 	});
+
+	// HS-Stats directory already exists
+	return readFile(fileName);
 }
 
 
 exports.createDir = function() {
-	fs.mkdir("./HS-Stats/", function() {
-		console.log("Create a new HS-Stats directory.");
-	});
+	fs.mkdirSync("./HS-Stats/");
 }
 
 exports.readFile = function(fileName) {
-	fs.readFile('./HS-Stats/' + fileName, 'utf8', function (err, data) {
-		if (err){
-			// fileName not exists
-			createFile();
+	try {
+		return fs.readFileSync('./HS-Stats/' + fileName, 'utf8');
+	} catch (e) {
+		if (e.code === 'ENOENT') {
+		  	console.log("File not found: " + " creating " + fileName + " file.");
+		  	setTimeout(function() {
+				createFile(fileName, "");
+			}, 100);
 			return "";
 		} else {
-			// fileName exists
-			console.log(data);
-			return data;
+			throw e;	
 		}
-	});	
+	}
 }
 
-exports.createFile = function(fileName) {
-	fs.writeFile("./HS-Stats/" + fileName, "", function(err) {
-		if (err) throw err;
-	});
-}
+exports.createFile = function(fileName, content) {
+	if (typeof content === 'undefined') {
+		content = "";
+	}
 
+	fs.writeFileSync("./HS-Stats/" + fileName, content);
+}
