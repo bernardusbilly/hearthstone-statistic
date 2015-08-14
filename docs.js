@@ -45,3 +45,10 @@ exports.createFile = function(fileName, content) {
 
 	fs.writeFileSync("./HS-Stats/" + fileName, content);
 }
+
+exports.appendFile = function(fileName, content) {
+	if (typeof content === 'undefined') {
+		content = "";
+	}
+	fs.appendFileSync("./HS-Stats/" + fileName, content);
+}

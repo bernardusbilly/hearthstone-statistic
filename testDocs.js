@@ -6,7 +6,7 @@ var fs = require('fs');
 //var hist = readHistory("statistic.txt");
 // console.log(readHistory("statistic.txt"));
 
-console.log(readHistory("stats.txt"));
+appendFile("stats.txt", "win!");
 
 /* functions */
 
@@ -49,5 +49,12 @@ function createFile(fileName, content) {
 	}
 
 	fs.writeFileSync("./HS-Stats/" + fileName, content);
+}
+
+function appendFile(fileName, content) {
+	if (typeof content === 'undefined') {
+		content = "";
+	}
+	fs.appendFileSync("./HS-Stats/" + fileName, content);
 }
 

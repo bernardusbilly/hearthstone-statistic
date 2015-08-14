@@ -23,17 +23,19 @@ logWatcher.on('game-over', function(players) {
 	if (players[0].status === 'WON') {
 		// player 0 won
 		if (players[0].team === 'FRIENDLY') {
-			console.log('Win.');
+			console.log("Win.");
 		} else {
-			console.log('Lost.');
+			console.log("Lost.");
 		}
+		console.log("Log recorded.");
 	} else {
 		// player 1 won
 		if (players[1].team === 'FRIENDLY') {
-			console.log('Win.');
+			console.log("Win.");
 		} else {
-			console.log('Lost.');
+			console.log("Lost.");
 		}
+		console.log("Log recorded.");
 	}
 
 	/*players.forEach(function(player) {
