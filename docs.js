@@ -51,4 +51,5 @@ exports.appendFile = function(fileName, content) {
 		content = "";
 	}
 	fs.appendFileSync("./HS-Stats/" + fileName, content);
+	console.log("Log recorded.");
 }

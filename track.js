@@ -27,7 +27,7 @@ logWatcher.on('game-over', function(players) {
 		} else {
 			console.log("Lost.");
 		}
-		console.log("Log recorded.");
+
 	} else {
 		// player 1 won
 		if (players[1].team === 'FRIENDLY') {
@@ -35,7 +35,6 @@ logWatcher.on('game-over', function(players) {
 		} else {
 			console.log("Lost.");
 		}
-		console.log("Log recorded.");
 	}
 
 	/*players.forEach(function(player) {
@@ -64,5 +63,41 @@ function Player(status) {
 
 	this.hero = function(heroName) {
 		this.hero = this.lib[heroName];
+	}
+
+	this.winner = function() {
+		return this.hero;
+	}
+}
+
+
+/**
+ 	Finds the number of win and lose in ourHeroName.txt with associated enemyHeroName
+
+	@param: (string)ourHeroName, (string)enemyHeroName
+	@return: the number of win and lose in array of integer
+*/
+function searchHeroWinRate(ourHeroName, enemyHeroName) {
+	var a = readHistory("Hunter.txt");
+	var b = a.split("\n");
+	var c = b[0].split(" ");
+	var d = c[0];
+	var e = parseInt(c[1]);
+
+	var text = docs.readHistory(ourHeroName + ".txt");
+	var found = false;
+	var lines = text.split("\n");
+	var rtn;
+
+	for(var i = 0; i < lines.length; i++) {
+		var hero = lines[i][0];
+		if (ourHeroName == hero) {
+			found = true;
+			rtn = [parseInt(lines[i][1]), parseInt(lines[i][2])];
+		}
+	}
+
+	if (found == true) {
+
 	}
 }

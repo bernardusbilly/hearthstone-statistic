@@ -6,7 +6,23 @@ var fs = require('fs');
 //var hist = readHistory("statistic.txt");
 // console.log(readHistory("statistic.txt"));
 
-appendFile("stats.txt", "win!");
+// appendFile("Hunter.txt", "\nHunter 0 0");
+
+var a = readHistory("Paladin.txt");
+var b = a.split("\n");
+var c = b[0].split(" ");
+var d = c[0];
+var e = parseInt(c[1]);
+
+console.log(a);
+console.log("===");
+console.log(b);
+console.log("===");
+console.log(c);
+console.log("===");
+console.log(d);
+console.log("===");
+console.log(e);
 
 /* functions */
 
@@ -56,5 +72,6 @@ function appendFile(fileName, content) {
 		content = "";
 	}
 	fs.appendFileSync("./HS-Stats/" + fileName, content);
+	console.log("Log recorded.");
 }
 
