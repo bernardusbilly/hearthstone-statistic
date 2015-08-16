@@ -18,11 +18,11 @@ exports.readHistory = function(fileName) {
 }
 
 
-exports.createDir = function() {
+function createDir() {
 	fs.mkdirSync("./HS-Stats/");
 }
 
-exports.readFile = function(fileName) {
+function readFile(fileName) {
 	try {
 		return fs.readFileSync('./HS-Stats/' + fileName, 'utf8');
 	} catch (e) {
@@ -38,7 +38,7 @@ exports.readFile = function(fileName) {
 	}
 }
 
-exports.createFile = function(fileName, content) {
+function createFile(fileName, content) {
 	if (typeof content === 'undefined') {
 		content = "";
 	}
@@ -52,4 +52,12 @@ exports.appendFile = function(fileName, content) {
 	}
 	fs.appendFileSync("./HS-Stats/" + fileName, content);
 	console.log("Log recorded.");
+}
+
+exports.createFile = function(fileName, content) {
+	if (typeof content === 'undefined') {
+		content = "";
+	}
+
+	fs.writeFileSync("./HS-Stats/" + fileName, content);
 }
