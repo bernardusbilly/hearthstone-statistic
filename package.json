@@ -1,8 +1,13 @@
 {
   "name": "hearthstone-statistic",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Hearthstone Statistic Tracker",
   "main": "docs.js",
+  "dependencies": {
+    "fs": "latest",
+    "events": "latest",
+    "hearthstone-log-watcher": "2.0.3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

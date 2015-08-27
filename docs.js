@@ -1,7 +1,33 @@
-var fs = require('fs');
-var events = require('events');
+var 		fs = require('fs');
+var		events = require('events');
+var LogWatcher = require('hearthstone-log-watcher');
+
+var logWatcher = new LogWatcher();
 
 var eventEmitter = new events.EventEmitter();
+
+
+exports.run = function() {
+	var player = new docs.Player("FRIENDLY");
+	var opp = new docs.Player("OPPONENT");
+
+	logWatcher.on('game-over', function(players) {
+		// to avoid recursion of new game
+		if (players.length != 0) {
+			if (players[0].status === 'WON') {
+				// our hero loses
+				docs.updateHeroWinRate(player.outputHero(), opp.outputHero(), "L");
+			} else {
+				// our hero wins
+				docs.updateHeroWinRate(player.outputHero(), opp.outputHero(), "W");
+			}
+		}
+		player = new docs.Player("FRIENDLY");
+		opp = new docs.Player("OPPONENT");
+	});
+
+	logWatcher.start();
+}
 
 /**
  	Finds the number of win and lose in ourHeroName.txt with associated enemyHeroName, then update the
@@ -10,7 +36,7 @@ var eventEmitter = new events.EventEmitter();
 	@param: (string)ourHeroName, (string)enemyHeroName, (string)"W" or "L" to indicate win or lose
 	@return: nothing
 */
-exports.updateHeroWinRate = function(ourHeroName, enemyHeroName, condition) {
+function updateHeroWinRate(ourHeroName, enemyHeroName, condition) {
 	var text = readHistory(ourHeroName + ".txt");
 	var lines = text.split("\n");
 	var found = false;
@@ -66,7 +92,7 @@ exports.updateHeroWinRate = function(ourHeroName, enemyHeroName, condition) {
 	@param: (string)FRIENDLY or OPPONENT
 */
 
-exports.Player = function(status) {
+function Player(status) {
 	this.status = status;
 	this.lib = {
 		"Rexxar": "Hunter",
