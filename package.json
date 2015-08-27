@@ -1,13 +1,8 @@
 {
   "name": "hearthstone-statistic",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "Hearthstone Statistic Tracker",
   "main": "docs.js",
-  "dependencies": {
-    "fs": "latest",
-    "events": "latest",
-    "hearthstone-log-watcher": "2.0.3"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -25,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/bernardusbilly/hearthstone-statistic/issues"
   },
-  "homepage": "https://github.com/bernardusbilly/hearthstone-statistic#readme"
+  "homepage": "https://github.com/bernardusbilly/hearthstone-statistic#readme",
+  "devDependencies": {},
+  "dependencies": {
+    "hearthstone-log-watcher": "^2.0.3",
+    "fs": "^0.0.2",
+    "events": "^1.0.2"
+  }
 }

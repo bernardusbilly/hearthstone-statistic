@@ -3,27 +3,25 @@ var		events = require('events');
 var LogWatcher = require('hearthstone-log-watcher');
 
 var logWatcher = new LogWatcher();
-
 var eventEmitter = new events.EventEmitter();
 
-
 exports.run = function() {
-	var player = new docs.Player("FRIENDLY");
-	var opp = new docs.Player("OPPONENT");
+	var player = new Player("FRIENDLY");
+	var opp = new Player("OPPONENT");
 
 	logWatcher.on('game-over', function(players) {
 		// to avoid recursion of new game
 		if (players.length != 0) {
 			if (players[0].status === 'WON') {
 				// our hero loses
-				docs.updateHeroWinRate(player.outputHero(), opp.outputHero(), "L");
+				updateHeroWinRate(player.outputHero(), opp.outputHero(), "L");
 			} else {
 				// our hero wins
-				docs.updateHeroWinRate(player.outputHero(), opp.outputHero(), "W");
+				updateHeroWinRate(player.outputHero(), opp.outputHero(), "W");
 			}
 		}
-		player = new docs.Player("FRIENDLY");
-		opp = new docs.Player("OPPONENT");
+		player = new Player("FRIENDLY");
+		opp = new Player("OPPONENT");
 	});
 
 	logWatcher.start();
