@@ -1,0 +1,24 @@
+{
+  "name": "hearthstone-statistic",
+  "version": "1.1.0",
+  "description": "Hearthstone Statistic Tracker",
+  "main": "docs.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bernardusbilly/hearthstone-statistic.git"
+  },
+  "keywords": [
+    "hearthstone",
+    "statistic",
+    "tracker"
+  ],
+  "author": "Bernardus Billy Tjiptoning",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bernardusbilly/hearthstone-statistic/issues"
+  },
+  "homepage": "https://github.com/bernardusbilly/hearthstone-statistic#readme"
+}

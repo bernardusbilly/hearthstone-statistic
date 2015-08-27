@@ -1,30 +1,121 @@
-// fs: file system
-// npm install fs
-
 var fs = require('fs');
+var events = require('events');
 
-/* functions */
+var eventEmitter = new events.EventEmitter();
 
-exports.readHistory = function(fileName) {
-	fs.readdir('./HS-Stats', function(err, data) {
+/**
+ 	Finds the number of win and lose in ourHeroName.txt with associated enemyHeroName, then update the
+ 	winning rate of that particular hero with corresponding enemyHero
+
+	@param: (string)ourHeroName, (string)enemyHeroName, (string)"W" or "L" to indicate win or lose
+	@return: nothing
+*/
+exports.updateHeroWinRate = function(ourHeroName, enemyHeroName, condition) {
+	var text = readHistory(ourHeroName + ".txt");
+	var lines = text.split("\n");
+	var found = false;
+
+	for(var i = 0; i < lines.length; i++) {
+		var hero = lines[i].split(" ")[0];
+		var win = 0;
+		var lost = 0;
+		var newRow;
+		var newText;
+		if (enemyHeroName == hero) {
+			found = true;
+			// update the data with corresponding condition
+			if (condition == "W") {
+				win = parseInt(lines[i].split(" ")[1]) + 1;
+				lost = parseInt(lines[i].split(" ")[2]);
+				newRow = [enemyHeroName, win, lost].join(" ");
+				lines[i] = newRow;
+				newText = lines.join("\n");
+				createFile(ourHeroName + ".txt", newText);
+			} else {
+				// lose condition
+				win = parseInt(lines[i].split(" ")[1])
+				lost = parseInt(lines[i].split(" ")[2]) + 1;
+				newRow = [enemyHeroName, win, lost].join(" ");
+				lines[i] = newRow;
+				newText = lines.join("\n");
+				createFile(ourHeroName + ".txt", newText);
+			}
+		}
+
+		// last recursion
+		if (i == lines.length-1) {
+			eventEmitter.emit("heroFound");
+		}
+	}
+
+	eventEmitter.on("heroFound", function() {
+		// if record was never made
+		if (found == false) {
+			if (condition == "W") {
+				appendFile(ourHeroName + ".txt", enemyHeroName + " 1 0\n");	
+			} else {
+				appendFile(ourHeroName + ".txt", enemyHeroName + " 0 1\n");
+			}
+		}
+	});
+}
+
+/* 
+	Player object to record the hero that the current player chooses
+
+	@param: (string)FRIENDLY or OPPONENT
+*/
+
+exports.Player = function(status) {
+	this.status = status;
+	this.lib = {
+		"Rexxar": "Hunter",
+		"Alleria Windrunner": "Hunter",
+		"Garrosh Hellscream": "Warrior",
+		"Magni Bronzebeard": "Warrior",
+		"Jaina Proudmoore": "Mage",
+		"Medivh": "Mage",
+		"Uther Lightbringer": "Paladin",
+		"Thrall": "Shaman",
+		"Anduin Wrynn": "Priest",
+		"Valeera Sanguinar": "Rogue",
+		"Gul'dan": "Warlock",
+		"Malfurion Stormrage": "Druid"
+	}
+
+	// saves the hero's class
+	this.hero = function(heroName) {
+		this.hero = this.lib[heroName];
+	}
+
+	// returns the hero's class
+	this.outputHero = function() {
+		return this.hero;
+	}
+}
+
+/* Filesystem extension functions */
+
+function readHistory(fileName) {
+	fs.readdir('./data', function(err, data) {
 		if (err) {
 			createDir();
 		}
 		// not returning anything here as fs will return undefined
 	});
 
-	// HS-Stats directory already exists
+	// data directory already exists
 	return readFile(fileName);
 }
 
 
 function createDir() {
-	fs.mkdirSync("./HS-Stats/");
+	fs.mkdirSync("./data/");
 }
 
 function readFile(fileName) {
 	try {
-		return fs.readFileSync('./HS-Stats/' + fileName, 'utf8');
+		return fs.readFileSync('./data/' + fileName, 'utf8');
 	} catch (e) {
 		if (e.code === 'ENOENT') {
 		  	console.log("File not found: " + " creating " + fileName + " file.");
@@ -43,21 +134,21 @@ function createFile(fileName, content) {
 		content = "";
 	}
 
-	fs.writeFileSync("./HS-Stats/" + fileName, content);
+	fs.writeFileSync("./data/" + fileName, content);
 }
 
-exports.appendFile = function(fileName, content) {
+function appendFile(fileName, content) {
 	if (typeof content === 'undefined') {
 		content = "";
 	}
-	fs.appendFileSync("./HS-Stats/" + fileName, content);
+	fs.appendFileSync("./data/" + fileName, content);
 	console.log("Log recorded.");
 }
 
-exports.createFile = function(fileName, content) {
+function createFile(fileName, content) {
 	if (typeof content === 'undefined') {
 		content = "";
 	}
 
-	fs.writeFileSync("./HS-Stats/" + fileName, content);
+	fs.writeFileSync("./data/" + fileName, content);
 }
