@@ -17,12 +17,12 @@ npm install hearthstone-statistic
 ### How to use
 1. Create a new javascript file (track.js for example)
 2. Copy and paste the following code
-	```js
+	```
     var hs = require('hearthstone-statistic');
     hs.run();
     ```
 3. Run your js file on your terminal
-    ```js
+    ```
     $ node track.js
     ```
 
