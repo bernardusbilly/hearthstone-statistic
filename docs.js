@@ -9,6 +9,18 @@ exports.run = function() {
 	var player = new Player("FRIENDLY");
 	var opp = new Player("OPPONENT");
 
+	logWatcher.on('zone-change', function (data) {
+		if (data.zone === 'PLAY (Hero)') {
+			if (data.team === 'FRIENDLY') {
+		  		player.inputHero(data.cardName);
+		  		console.log(data.cardName + ' - ' + data.team);
+		  	} else {
+		  		opp.inputHero(data.cardName);
+		  		console.log(data.cardName + ' - ' + data.team);
+		  	}
+		}
+	});
+
 	logWatcher.on('game-over', function(players) {
 		// to avoid recursion of new game
 		if (players.length != 0) {
@@ -108,7 +120,7 @@ function Player(status) {
 	}
 
 	// saves the hero's class
-	this.hero = function(heroName) {
+	this.inputHero = function(heroName) {
 		this.hero = this.lib[heroName];
 	}
 

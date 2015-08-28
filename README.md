@@ -2,7 +2,7 @@
 This package will extract the log from hearthstone folder to automaticaly record the your number of win and lost against other hero.
 
 ### Version
-1.2.2
+1.2.3
 
 ### Dependencies
 1. hearthstone-log-watcher

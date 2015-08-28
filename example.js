@@ -6,7 +6,6 @@ var docs = require('./docs');
 var player = new docs.Player("FRIENDLY");
 var opp = new docs.Player("OPPONENT");
 
-// this part is not neccessary to save the record - just to see the cards movement
 logWatcher.on('zone-change', function (data) {
 	if (data.zone === 'PLAY (Hero)') {
 		if (data.team === 'FRIENDLY') {
