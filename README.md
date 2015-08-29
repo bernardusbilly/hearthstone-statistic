@@ -11,22 +11,41 @@ This package will extract the log from hearthstone folder to automaticaly record
 
 ### Installation
 ```sh
-npm install hearthstone-statistic
+$ npm install hearthstone-statistic
 ```
 
-### How to use
-1. Create a new javascript file (track.js for example)
-2. Copy and paste the following code
+### How to turn on log emitter
+1. Locate Hearthstone folder
+	a. Windows: ```C:\Users\USERNAME\AppData\Local\Blizzard\Hearthstone```
+	b. Mac: ```USERNAME/Documents/Library/Preferences/Blizzard/Hearthstone```
+2. Create a file called "log.config" in that directory
+3. Copy and paste the following code to your log.config
 	```
-    var hs = require('hearthstone-statistic');
-    hs.run();
+	[Zone]
+	LogLevel=1
+	FilePrinting=false
+	ConsolePrinting=true
+	ScreenPrinting=false
+	```
+
+For reference: https://www.reddit.com/r/hearthstone/comments/268fkk/simple_hearthstone_logging_see_your_complete_play
+
+### How to use hearthstone-statistic
+1. Turn on the log emitter 
+2. Create a new javascript file (track.js for example)
+3. Copy and paste the following code
+	```
+	var hs = require('hearthstone-statistic');
+	hs.run();
     ```
-3. Run your js file on your terminal
+4. Run your js file on your terminal
     ```
     $ node track.js
     ```
 
-4. Play your ordinary Hearthstone game!
+5. Play your ordinary Hearthstone game!
+
+
 
 ### Known Bugs
 - First game using a new hero from the data will not be recorded.
