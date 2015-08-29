@@ -2,7 +2,7 @@
 This package will extract the log from hearthstone folder to automaticaly record the your number of win and lost against other hero.
 
 ### Version
-1.2.4
+1.2.5
 
 ### Dependencies
 1. hearthstone-log-watcher
@@ -16,8 +16,8 @@ $ npm install hearthstone-statistic
 
 ### How to turn on log emitter
 1. Locate Hearthstone folder
-	a. Windows: ```C:\Users\USERNAME\AppData\Local\Blizzard\Hearthstone```
-	b. Mac: ```USERNAME/Documents/Library/Preferences/Blizzard/Hearthstone```
+	- Windows: ```C:\Users\USERNAME\AppData\Local\Blizzard\Hearthstone```
+	- Mac: ```USERNAME/Documents/Library/Preferences/Blizzard/Hearthstone```
 2. Create a file called "log.config" in that directory
 3. Copy and paste the following code to your log.config
 	```

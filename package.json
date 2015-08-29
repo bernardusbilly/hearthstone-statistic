@@ -1,6 +1,6 @@
 {
   "name": "hearthstone-statistic",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Hearthstone Statistic Tracker",
   "main": "docs.js",
   "scripts": {
